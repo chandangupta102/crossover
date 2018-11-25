@@ -5,11 +5,15 @@ import { appConfig } from 'appConfig';
 import { ICountryListModel } from '@shared/models/country-list.interface';
 import { ICategoryListInterface } from '@shared/models/category-list.interface';
 import { ContextService } from '@shared/context.service';
+import { YoutubeService } from '@modules/youtube/service/youtube.service';
 
 @Component({
   selector   : 'app-slide-filters',
   templateUrl: './slide-filters.component.html',
-  styleUrls  : [ './slide-filters.component.scss' ]
+  styleUrls  : [ './slide-filters.component.scss' ],
+  providers: [
+    YoutubeService
+  ]
 })
 export class SlideFiltersComponent implements OnInit {
   public countryFormControl: FormControl = new FormControl();
@@ -25,7 +29,7 @@ export class SlideFiltersComponent implements OnInit {
 
   public defaultVideosOnPage: number = appConfig.maxVideosToLoad;
 
-  constructor(private appContext: ContextService) {
+  constructor(private appContext: ContextService, private youtubeService: YoutubeService) {
   }
 
   public ngOnInit() {
@@ -45,4 +49,13 @@ export class SlideFiltersComponent implements OnInit {
     this.countryFormControl.setValue(defaultCountry);
     this.categoryFormControl.setValue(defaultCategory);
   }
+
+  public getTrendingVideos() {
+    const id = this.categoriesList.find((country) =>
+    country.name === this.categoryFormControl.value).id;
+    const code = this.countryList.find((country) =>
+    country.name === this.countryFormControl.value).code;
+    this.youtubeService.getTrendingVideos(this.defaultVideosOnPage, code, id);
+  }
+
 }

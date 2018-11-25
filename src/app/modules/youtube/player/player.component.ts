@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { appConfig } from 'appConfig';
 
@@ -10,6 +11,10 @@ import { appConfig } from 'appConfig';
 export class PlayerComponent implements OnInit {
   public embedUrl: string;
   public videoLoader: boolean;
+
+  constructor(public sanitizer: DomSanitizer) {
+
+  }
 
   public ngOnInit() {
     const id = window.location.href

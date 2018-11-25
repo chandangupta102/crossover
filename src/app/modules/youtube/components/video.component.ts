@@ -9,4 +9,8 @@ import { VideoClass } from '@modules/youtube/models/video.class';
 
 export class VideoComponent {
   @Input() public video: VideoClass;
+
+  updateLikeCount() {
+    this.video.likeCount++;
+  }
 }

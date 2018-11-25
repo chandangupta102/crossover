@@ -13,6 +13,5 @@ export class HeaderComponent {
   public title$: Subject<string> = this.appContext.moduleTitle;
 
   constructor(private appContext: ContextService) {
-  }
-
+  } 
 }
